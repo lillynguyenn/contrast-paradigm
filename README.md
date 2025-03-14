@@ -1,1 +1,3 @@
 # contrast-paradigm
+
+% Testing commit
