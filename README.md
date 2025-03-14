@@ -32,3 +32,11 @@ shapes = {'Circle', 'Square', 'Triangle', 'Cross'};
 
 % Defining the contrast levels btwn shapes from easy to hard - Ava
 ColorContrast = linspace(0.1, 0.9, 10);
+
+% Defining the parameters of our paradigms - Ava
+NumberTrials = 4;
+NumberPresentations = 15;
+NumberControl = 5;
+NumberExperimental = 10;
+
+
