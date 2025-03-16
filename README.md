@@ -10,10 +10,10 @@ PsychDefaultSetup(2);
 screens = Screen('Screens');
 screenNumber = max(screens);
 
-[window, windowRect] = PsychImaging('OpenWindow', screenNumber, white);
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, [128 128 128]);
 KbStrokeWait;
 sca;
-cmd-alt-esc;
+cmdaltesc;
 
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 ifi = Screen('GetFlipInterval', window);
@@ -47,7 +47,7 @@ shapeAccuracy = zeros(NumberTrials,NumberPresentations);
 % Define the on-screen text - Lilly
 txtSize = 30;
 screen('txtSize',window,txtSize);
-txtColor = [0,0,0]
+txtColor = [0,0,0];
 
 % Define response keys - Lilly
 yess = 'y';
@@ -62,6 +62,8 @@ isControl = true;
 else
 isControl = false;
 end
+end
+end
 
 if ~isControl
 shapeldx = randi(4);
@@ -73,7 +75,7 @@ end
 
 % Establish the shapes - Lilly
 squareSize = 200;
-squareRect = CenterRectOnPointd([0,0,squareSize,squareSize]),screenXpixels/2,screenYpixels/2);
+squareRect = CenterRectOnPointd(([0,0,squareSize,squareSize]),screenXpixels/2,screenYpixels/2);
 Screen('FillRect',window,backgroundGray,squareRect);
 if ~isControl
 switch shapes{shapeldx}
@@ -89,4 +91,3 @@ vertices = [squareRect(1),squareRect(4);squareRect(3),squareRect(4), (squareRect
 screen ('fillPoly',window,shapeColor,vertices);
 end
 end
-
