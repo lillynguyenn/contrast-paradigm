@@ -91,3 +91,24 @@ vertices = [squareRect(1),squareRect(4);squareRect(3),squareRect(4), (squareRect
 screen ('fillPoly',window,shapeColor,vertices);
 end
 end
+
+% Present the stimulus and begin recording RT - Ava
+Screen('Flip', window);
+T0 = ReactionTime;
+
+% Ask if participants see a shape and wait until they respond - Ava
+DrawFormattedText(window, 'Is there a shape within the square? (y/n)', 'center', screenYpixels/2 + squareSize/2 + 50, textColor);
+Screen('Flip', window);
+[~, keyCode] = KbWait;
+RT = ReactionTime - T0;
+key = KbName(find(keyCode));
+
+% record RT in msec - Ava
+RTfinal(trial, presentation) = ReactionTime * 1000; 
+
+% Check accuracy of answer to y/n question - Ava
+if (strcmpi(key, yesKey) && ~isControl) || (strcmpi(key, noKey) && isControl)
+    detectionAccuracy(trial, presentation) = 1;
+else
+    detectionAccuracy(trial, presentation) = 0;
+end
