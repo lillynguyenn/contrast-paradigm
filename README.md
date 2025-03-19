@@ -39,6 +39,11 @@ NumberPresentations = 15;
 NumberControl = 5;
 NumberExperimental = 10;
 
+% Setup and debugging of code above - Ava (~5 hours setting up psych
+% toolbox and learning functions/doing preliminary research, ~1-2 hours coding and debugging)
+% For above setup, both partners did prelimiary research on visual accuity,
+% contrast paradigms, and existent literature (~5 hours)
+
 % Initialize dependent variables - Lilly
 rxnTime = zeros(NumberTrials,NumberPresentations);
 detectionAccuracy = zeros(NumberTrials,NumberPresentations);
@@ -112,3 +117,7 @@ if (strcmpi(key, yesKey) && ~isControl) || (strcmpi(key, noKey) && isControl)
 else
     detectionAccuracy(trial, presentation) = 0;
 end
+
+% Above section of code (from presenting stimulus to checking accuracy) -
+% Ava (~2 hours)
+% Run through and debugging/modification of all existent code (~2 hours)
