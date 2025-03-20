@@ -39,10 +39,10 @@ NumberPresentations = 15;
 NumberControl = 5;
 NumberExperimental = 10;
 
-% Setup and debugging of code above - Ava (~5 hours setting up psych
-% toolbox and learning functions/doing preliminary research, ~1-2 hours coding and debugging)
+% Setup and debugging of code above - Ava (5 hours setting up psych
+% toolbox and learning functions/doing preliminary research, 1-2 hours coding and debugging)
 % For above setup, both partners did prelimiary research on visual accuity,
-% contrast paradigms, and existent literature (~5 hours)
+% contrast paradigms, and existent literature (5 hours per person)
 
 % Initialize dependent variables - Lilly
 rxnTime = zeros(NumberTrials,NumberPresentations);
@@ -96,6 +96,12 @@ vertices = [squareRect(1),squareRect(4);squareRect(3),squareRect(4), (squareRect
 screen ('fillPoly',window,shapeColor,vertices);
 end
 end
+
+% Lilly's time distribution:
+% Download Psychtoolbox and install it in Matlab; encountered some errors with the zip file - 3 hours
+% Go through the Psychtookbox guide and learn about different PTB functions - 2 hours
+% Trial and error in figuring out how to draw out the shapes - 2 hours
+% Debugging - 1 hour
 
 % Present the stimulus and begin recording RT - Ava
 Screen('Flip', window);
