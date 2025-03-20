@@ -13,7 +13,6 @@ screenNumber = max(screens);
 [window, windowRect] = PsychImaging('OpenWindow', screenNumber, [128 128 128]);
 KbStrokeWait;
 sca;
-cmdaltesc;
 
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 ifi = Screen('GetFlipInterval', window);
@@ -73,9 +72,9 @@ end
 if ~isControl
 shapeldx = randi(4);
 contrastldx = randi(length(ColorContrast));
-shapeColor=shapeColors(shapeldx,:)*ColorContrast(contrastldx);
+ShapeColors=ShapeColors(shapeldx,:)*ColorContrast(contrastldx);
 else
-shapeColor=ControlColor;
+ShapeColors=ControlColor;
 end
 
 % Establish the shapes - Lilly
@@ -85,15 +84,15 @@ Screen('FillRect',window,backgroundGray,squareRect);
 if ~isControl
 switch shapes{shapeldx}
 case 'Circle'
-screen ('fillOval',window,shapeColor,squareRect);
+Screen ('fillOval',window,ShapeColors,squareRect);
 case 'Square'
-screen ('fillRect',window,shapeColor,squareRect);
+Screen ('fillRect',window,ShapeColors,squareRect);
 case 'Cross'
-screen ('drawLine',window,shapeColor,squareRect(1),squareRect(2),squareRect(3), squarerect(4),5);
-screen ('drawLine',window,shapeColor,squareRect(1),squareRect(4),squareRect(3), squarerect(2),5);
+Screen ('drawLine',window,ShapeColors,squareRect(1),squareRect(2),squareRect(3), squareRect(4),5);
+Screen ('drawLine',window,ShapeColors,squareRect(1),squareRect(4),squareRect(3), squareRect(2),5);
 case 'Triangle'
-vertices = [squareRect(1),squareRect(4);squareRect(3),squareRect(4), (squareRect(1)+squareRect(3))/2,squareRect(2)];
-screen ('fillPoly',window,shapeColor,vertices);
+vertices = [squareRect(1) squareRect(4);squareRect(3) squareRect(4); (squareRect(1)+squareRect(3))/2 squareRect(2)];
+Screen ('fillPoly',window,ShapeColors,vertices);
 end
 end
 
@@ -105,17 +104,17 @@ end
 
 % Present the stimulus and begin recording RT - Ava
 Screen('Flip', window);
-T0 = ReactionTime;
+T0 = GetSecs;
 
 % Ask if participants see a shape and wait until they respond - Ava
 DrawFormattedText(window, 'Is there a shape within the square? (y/n)', 'center', screenYpixels/2 + squareSize/2 + 50, textColor);
 Screen('Flip', window);
 [~, keyCode] = KbWait;
-RT = ReactionTime - T0;
+RT = GetSecs - T0;
 key = KbName(find(keyCode));
 
 % record RT in msec - Ava
-RTfinal(trial, presentation) = ReactionTime * 1000; 
+RTfinal(trial, presentation) = RT * 1000; 
 
 % Check accuracy of answer to y/n question - Ava
 if (strcmpi(key, yesKey) && ~isControl) || (strcmpi(key, noKey) && isControl)
@@ -125,5 +124,36 @@ else
 end
 
 % Above section of code (from presenting stimulus to checking accuracy) -
-% Ava (~2 hours)
-% Run through and debugging/modification of all existent code (~2 hours)
+% Ava (2 hours)
+% Run through and debugging/modification of all existent code (2 hours)
+
+% Second debugging - Ava (3 hours)
+
+
+% if the participant responds 'y' to the initial question, prompt them to
+% select which shape they think they saw and wait an answer- Ava and Lilly
+if strcmpi(key, yesKey) && ~isControl
+    Screen('Flip', window);
+    DrawFormattedText(window, 'What shape was inside the square?\n1: Circle\n2: Square\n3: Cross\n4: Triangle', 'center', 'center', textColor);
+    Screen('Flip', window);
+end
+[~, keyCode] = KbWait;
+shapeResponse = KbName(find(keyCode));
+
+if strcmp(shapeResponse, shapeKeys{shapeIdx})
+    shapeAccuracy(trial, presentation - numControl) = 1;
+else
+    shapeAccuracy(trial, presentation - numControl) = 0;
+end
+
+WaitSecs(1); 
+
+% saving participant data and closing out the screen - Ava and Lilly
+save('experimentData.mat', 'reactionTimes', 'detectionAccuracy', 'shapeAccuracy');
+sca;
+
+% Ava and Lilly collaborated on the sections of code above (5 hours)
+
+
+
+
