@@ -20,7 +20,8 @@ assert(window ~= 0, 'Failed to initialize window');
 ifi = Screen('GetFlipInterval', window);
 rr = FrameRate(window);
 
-% Defining colors for the paradigms - Ava
+% Defining colors for the paradigms - Ava (can be modified depending
+% on the needs of the researchers or to accomodate differential color perception)
 white = [255 255 255];
 black = [0 0 0];
 backgroundGray = [255 255 255];
@@ -29,12 +30,14 @@ ShapeColors = [255 0 0];
 % Defining shapes for the paradigms - Ava 
 shapes = {'Circle', 'Square', 'Triangle', 'Cross'};
 
-% Defining the contrast levels btwn shapes from easy to hard 
+% Defining the contrast levels btwn shapes from hard to easy (can be modified depending
+% on the needs of the researchers)
 % Ava
 ColorContrast = 0.1:0.1:0.9;
 
 
-% Defining the parameters of our paradigms - Ava
+% Defining the parameters of our paradigms - Ava (can be modified depending
+% on the needs of the researchers)
 NumberTrials = 1;
 NumberPresentations = 10;
 
@@ -73,6 +76,7 @@ for trial = 1:NumberTrials
             return;  
         end
 
+        % randomizing shape and color contrast level
         shapeIdx = randi(4);
         contrastIdx = randi(length(ColorContrast));
 
@@ -90,13 +94,18 @@ for trial = 1:NumberTrials
 
         disp(['Shape color (RGB): ', num2str(shapeColor)]);
 
+        %defining parameters of the red square in which stimulus is to be
+        %presented
         squareSize = 400;
         shapeSize = 200;
         squareRect = CenterRect([0, 0, squareSize , squareSize], windowRect);
 
+        %setting background and red square 
         Screen('FillRect', window, backgroundGray) 
         Screen('FillRect', window, ShapeColors, squareRect);
 
+        %superimposing a second shape in that differentially contrasted
+        %tint of red over the first red square
         switch shapes{shapeIdx}
             case 'Circle'
                 disp('Drawing Circle');
@@ -200,7 +209,7 @@ sca;
 
 % Ava and Lilly collaborated on the sections of code above (5 hours)
 
-%final debugging and trying to make the code work - whole team 3/20 (12 hours)
+%final debugging - whole team 3/20 (12 hours)
 % a lot of this time was spent trying to figure out how to make the functions work properly, and involved a lot of rewriting
 
 
